@@ -8,6 +8,12 @@ iRay  | Programming
 
 ]]
 
+--[[
+
+Roblox Studio Version made by nfpw https://discord.gg/synapse-v3-997437713907200010
+
+]]
+
 local Release = "Beta 8"
 local NotificationDuration = 6.5
 local RayfieldFolder = "Rayfield"
@@ -368,7 +374,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 -- Interface Management
-local Rayfield = game:GetObjects("rbxassetid://122930296375501")[1]
+local Rayfield = game.ReplicatedStorage:WaitForChild("RayField"):WaitForChild("RayField")
 
 Rayfield.Enabled = false
 
@@ -385,7 +391,7 @@ local ParentObject = function(Gui)
 	if not success and failure then
 		Gui.Parent = game.Players.LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
 	end
-	getgenv().LastRayField = Rayfield
+	_G.LastRayField = Rayfield
 end
 ParentObject(Rayfield)
 
@@ -637,10 +643,10 @@ local neon = (function() -- Open sourced neon module
 		end
 	end
 	local RootParent = Camera
-	if getgenv().SecureMode == nil then
+	if _G.SecureMode == nil then
 		RootParent = Camera
 	else
-		if not getgenv().SecureMode then
+		if not _G.SecureMode then
 			RootParent = Camera
 		else 
 			RootParent = nil
@@ -1146,6 +1152,17 @@ function Unhide()
 	TweenService:Create(Main.Topbar.Divider, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(Main.Topbar.CornerRepair, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
 	TweenService:Create(Main.Topbar.Title, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+	
+	if MPrompt then
+		TweenService:Create(MPrompt, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 40, 0, 10), Position = UDim2.new(0.5, 0, 0, -50), BackgroundTransparency = 1}):Play()
+		TweenService:Create(MPrompt.Title, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
+
+		task.spawn(function()
+			task.wait(0.5)
+			MPrompt.Visible = false
+		end)
+	end
+	
 	if Minimised then
 		spawn(Maximise)
 	end
@@ -1396,7 +1413,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 		if not Passthrough then
 			local AttemptsRemaining = math.random(2,6)
 			Rayfield.Enabled = false
-			local KeyUI = useStudio and script.Parent:FindFirstChild('Key') or game:GetObjects("rbxassetid://11380036235")[1]
+			local KeyUI = game.ReplicatedStorage:WaitForChild("RayField"):WaitForChild("Key")
 
 			if gethui then
 				KeyUI.Parent = gethui()
@@ -3086,6 +3103,16 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		end
 	end
 end)
+
+if MPrompt then
+	MPrompt.Interact.MouseButton1Click:Connect(function()
+		if Debounce then return end
+		if Hidden then
+			Hidden = false
+			Unhide()
+		end
+	end)
+end
 
 for _, TopbarButton in ipairs(Topbar:GetChildren()) do
 	if TopbarButton.ClassName == "ImageButton" then

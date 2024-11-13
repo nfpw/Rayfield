@@ -368,7 +368,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 -- Interface Management
-local Rayfield = game.ReplicatedStorage:WaitForChild("RayField"):WaitForChild("RayField")
+local Rayfield = game:GetObjects("rbxassetid://122930296375501")[1]
 
 Rayfield.Enabled = false
 
@@ -1396,7 +1396,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 		if not Passthrough then
 			local AttemptsRemaining = math.random(2,6)
 			Rayfield.Enabled = false
-			local KeyUI = game.ReplicatedStorage:WaitForChild("RayField"):WaitForChild("Key")
+			local KeyUI = useStudio and script.Parent:FindFirstChild('Key') or game:GetObjects("rbxassetid://11380036235")[1]
 
 			if gethui then
 				KeyUI.Parent = gethui()

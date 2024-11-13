@@ -8,12 +8,6 @@ iRay  | Programming
 
 ]]
 
---[[
-
-Roblox Studio Version made by nfpw https://discord.gg/synapse-v3-997437713907200010
-
-]]
-
 local Release = "Beta 8"
 local NotificationDuration = 6.5
 local RayfieldFolder = "Rayfield"

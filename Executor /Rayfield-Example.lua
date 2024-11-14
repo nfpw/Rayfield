@@ -1,5 +1,4 @@
 getgenv().__UIScale = 1
-local T = game.ReplicatedStorage:WaitForChild("RayField"):WaitForChild("RayField")
 local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/nfpw/Rayfield/refs/heads/main/Executor%20/Rayfield-ModuleScript.lua"))()
 
 local Window = Rayfield:CreateWindow({
@@ -146,4 +145,5 @@ local Keybind = Tab:CreateKeybind({
 local Label = Tab:CreateLabel("Label Example")
 
 local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph Example"})
+local T = game:GetService("CoreGui").RayField.UIScale
 T.UIScale.Scale = getgenv().__UIScale

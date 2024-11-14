@@ -1276,27 +1276,19 @@ end
 function RayfieldLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
-	Main.Size = UDim2.new(0, 450, 0, 260)
+	Main.Size = UDim2.new(0, 325, 0, 250)
 	Main.Visible = true
 	Main.BackgroundTransparency = 1
 	LoadingFrame.Title.TextTransparency = 1
-	LoadingFrame.Subtitle.TextTransparency = 1
+	LoadingFrame.Subtitle.Visible = false
 	Main.Shadow.Image.ImageTransparency = 1
-	LoadingFrame.Version.TextTransparency = 1
-	local imageLabel = Instance.new("ImageLabel")
-	imageLabel.Image = "http://www.roblox.com/asset/?id=18215499099"
-	imageLabel.Size = UDim2.new(0, 400, 0, 300)
-	imageLabel.Position = UDim2.new(0.5, 0, 0.6, 0)
-	imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-	imageLabel.BackgroundTransparency = 1
-	imageLabel.ImageTransparency = 0
-	imageLabel.Visible = true
-	imageLabel.Parent = LoadingFrame
+	LoadingFrame.Version.Visible = false
 	LoadingFrame.Title.Text = Settings.LoadingTitle or "Rayfield Interface Suite"
-	LoadingFrame.Subtitle.Text = Settings.LoadingSubtitle or "by Sirius"
+	
 	if Settings.LoadingTitle ~= "Rayfield Interface Suite" then
 		LoadingFrame.Version.Text = "Rayfield UI"
 	end
+	
 	Topbar.Visible = false
 	Elements.Visible = false
 	LoadingFrame.Visible = true
@@ -1311,6 +1303,65 @@ function RayfieldLibrary:CreateWindow(Settings)
 			warn('issue rendering theme. no theme on file')
 		end
 	end
+	
+	local texts = {
+		"Hello (join discord pls) - AHK",
+		"Minecraft made by Notch  - nfpw",
+		"William what is this!!1 - Luki",
+		"40 bobuc al moruk 40 bobuc al - xTweakzz"
+	}
+	
+	local colors = {
+		Color3.fromRGB(255, 255, 0),
+		Color3.fromRGB(255, 0, 0),
+		Color3.fromRGB(255, 255, 255)
+	}
+
+	local randomText = texts[math.random(1, #texts)]
+	local randomColor = colors[math.random(1, #colors)]
+
+	local frames = {
+		"rbxassetid://136200282848457",
+		"rbxassetid://112564686108512",
+	}
+
+	local ImageLabel = Instance.new("ImageLabel")
+	ImageLabel.Parent = LoadingFrame
+	ImageLabel.Name = "ImageLabel"
+	ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+	ImageLabel.Size = UDim2.new(0, 150, 0, 150)
+	ImageLabel.BackgroundTransparency = 1
+	ImageLabel.ImageTransparency = 1
+	ImageLabel.Visible = true
+
+	LoadingFrame.Title.AnchorPoint = Vector2.new(0.5, 0)
+	LoadingFrame.Title.Position = UDim2.new(ImageLabel.Position.X.Scale, ImageLabel.Position.X.Offset, 0.1, 0)
+	LoadingFrame.Title.TextXAlignment = Enum.TextXAlignment.Center
+
+	local ClonedTitle = LoadingFrame.Title:Clone()
+	ClonedTitle.Parent = LoadingFrame
+	ClonedTitle.AnchorPoint = Vector2.new(0.5, 1)
+	ClonedTitle.Position = UDim2.new(ImageLabel.Position.X.Scale, ImageLabel.Position.X.Offset, 0.9, 0)
+	ClonedTitle.TextTransparency = 1
+	ClonedTitle.Text = randomText
+	ClonedTitle.Name = "ClonedTitle"
+	ClonedTitle.TextColor3 = randomColor
+	ClonedTitle.TextXAlignment = Enum.TextXAlignment.Center
+
+	local function playGif()
+		local frameIndex = 1
+		while true do
+			ImageLabel.Image = frames[frameIndex]
+			frameIndex = frameIndex + 1
+			if frameIndex > #frames then
+				frameIndex = 1
+			end
+			task.wait(0.4)
+		end
+	end
+
+	spawn(playGif)
 
 	pcall(function()
 		if not Settings.ConfigurationSaving.FileName then
@@ -1332,7 +1383,10 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end	
 		end
 	end)
-
+	
+	LoadingFrame.Visible = true
+	ImageLabel.Visible = true  
+	
 	AddDraggingFunctionality(Topbar,Main)
 
 	for _, TabButton in ipairs(TabList:GetChildren()) do
@@ -1571,6 +1625,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 	task.wait(0.1)
 	TweenService:Create(LoadingFrame.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
 	TweenService:Create(LoadingFrame.ImageLabel, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0}):Play()
+	TweenService:Create(LoadingFrame.ClonedTitle, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
 	task.wait(0.05)
 	TweenService:Create(LoadingFrame.Subtitle, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
 	task.wait(0.05)
@@ -2956,6 +3011,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 	TweenService:Create(LoadingFrame.ImageLabel, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {ImageTransparency = 1}):Play()
 	TweenService:Create(LoadingFrame.Subtitle, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {TextTransparency = 1}):Play()
 	TweenService:Create(LoadingFrame.Version, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {TextTransparency = 1}):Play()
+	TweenService:Create(LoadingFrame.ImageLabel, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {ImageTransparency = 1}):Play()
+	TweenService:Create(ClonedTitle, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {TextTransparency = 1}):Play()
 	task.wait(0.2)
 	TweenService:Create(Main, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 500, 0, 475)}):Play()
 	TweenService:Create(Main.Shadow.Image, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0.4}):Play()

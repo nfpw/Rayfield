@@ -1328,7 +1328,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 	ImageLabel.BackgroundTransparency = 1
 	ImageLabel.ImageTransparency = 1
 	ImageLabel.Visible = true
-
+	
+	local UICorner = Instance.new("UICorner")
+	UICorner.CornerRadius = UDim.new(0.5, 0)
+	UICorner.Parent = ImageLabel
+	
 	LoadingFrame.Title.AnchorPoint = Vector2.new(0.5, 0)
 	LoadingFrame.Title.Position = UDim2.new(ImageLabel.Position.X.Scale, ImageLabel.Position.X.Offset, 0.1, 0)
 	LoadingFrame.Title.TextXAlignment = Enum.TextXAlignment.Center

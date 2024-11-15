@@ -1316,10 +1316,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 	local randomColor = colors[math.random(1, #colors)]
 
 	local frames = {
-		"rbxassetid://136200282848457",
-		"rbxassetid://112564686108512",
+		"rbxassetid://" .. game:GetService("MarketplaceService"):GetProductInfo(tonumber(game.PlaceId)).IconImageAssetId,
 	}
-
+	-- im lazy to optimize the code -nfpw
 	local ImageLabel = Instance.new("ImageLabel")
 	ImageLabel.Parent = LoadingFrame
 	ImageLabel.Name = "ImageLabel"

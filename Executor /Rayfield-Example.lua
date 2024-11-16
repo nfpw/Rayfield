@@ -146,4 +146,5 @@ local Label = Tab:CreateLabel("Label Example")
 
 local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph Example"})
 local T = game:GetService("CoreGui").RayField.UIScale
-T.UIScale.Scale = getgenv().__UIScale
+T.Scale = getgenv().__UIScale
+-- im retarded

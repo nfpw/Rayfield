@@ -374,7 +374,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 -- Interface Management
-local Rayfield = game:GetObjects("rbxassetid://97255374012822")
+local Rayfield = game:GetObjects("rbxassetid://97255374012822")[1]
 Rayfield.Enabled = false
 
 local ParentObject = function(Gui)
@@ -409,13 +409,13 @@ end
 -- Object Variables
 
 local Camera = game:GetService("Workspace").CurrentCamera
-local Main = Rayfield.Main
-local MPrompt = Rayfield.Prompt
-local Topbar = Main.Topbar
-local Elements = Main.Elements
-local LoadingFrame = Main.LoadingFrame
-local TabList = Main.TabList
-local dragBar = Main.Drag
+local Main = Rayfield:FindFirstChild('Main')
+local MPrompt = Rayfield:FindFirstChild('Prompt')
+local Topbar = Rayfield:FindFirstChild('Topbar')
+local Elements = Main:FindFirstChild('Elements')
+local LoadingFrame = Main:FindFirstChild('LoadingFrame')
+local TabList = Main:FindFirstChild('TabList')
+local dragBar = Main:FindFirstChild('Drag')
 local dragInteract = dragBar and dragBar.Interact or nil
 local dragBarCosmetic = dragBar and dragBar.Drag or nil
 

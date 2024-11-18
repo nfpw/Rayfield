@@ -374,7 +374,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 -- Interface Management
-local Rayfield = game:GetObjects("rbxassetid://131177882749086")
+local Rayfield = game:GetObjects("rbxassetid://131177882749086")[1]
 Rayfield.Enabled = false
 
 local ParentObject = function(Gui)

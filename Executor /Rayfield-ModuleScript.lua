@@ -408,7 +408,7 @@ end
 
 -- Object Variables
 
-local Camera = workspace.CurrentCamera
+local Camera = game:GetService("Workspace").CurrentCamera
 local Main = Rayfield.Main
 local MPrompt = Rayfield.Prompt
 local Topbar = Main.Topbar

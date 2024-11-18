@@ -409,12 +409,12 @@ end
 -- Object Variables
 
 local Camera = game:GetService("Workspace").CurrentCamera
-local Main = Rayfield:FindFirstChild('Main')
+local Main = Rayfield.Main
 local MPrompt = Rayfield:FindFirstChild('Prompt')
-local Topbar = Rayfield:FindFirstChild('Topbar')
-local Elements = Main:FindFirstChild('Elements')
-local LoadingFrame = Main:FindFirstChild('LoadingFrame')
-local TabList = Main:FindFirstChild('TabList')
+local Topbar = Main.Topbar
+local Elements = Main.Elements
+local LoadingFrame = Main.LoadingFrame
+local TabList = Main.TabList
 local dragBar = Main:FindFirstChild('Drag')
 local dragInteract = dragBar and dragBar.Interact or nil
 local dragBarCosmetic = dragBar and dragBar.Drag or nil

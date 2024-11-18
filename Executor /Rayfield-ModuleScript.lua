@@ -1316,8 +1316,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 	local randomColor = colors[math.random(1, #colors)]
 
 	local frames = {
-		"rbxassetid://136200282848457",
-		"rbxassetid://112564686108512",
+		"rbxassetid://14624890638",
+		"rbxassetid://2774549486",
+		"rbxassetid://17868600705",
 	}
 
 	local ImageLabel = Instance.new("ImageLabel")
@@ -1330,6 +1331,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 	ImageLabel.ImageTransparency = 1
 	ImageLabel.Visible = true
 
+	local UICorner = Instance.new("UICorner")
+	UICorner.CornerRadius = UDim.new(0, 5)
+	UICorner.Parent = ImageLabel
+	-- yanlışıkla daire yapmıştım aq / netpa: UICorneri ama 0, 4 yapabilirdin
+	
 	LoadingFrame.Title.AnchorPoint = Vector2.new(0.5, 0)
 	LoadingFrame.Title.Position = UDim2.new(ImageLabel.Position.X.Scale, ImageLabel.Position.X.Offset, 0.1, 0)
 	LoadingFrame.Title.TextXAlignment = Enum.TextXAlignment.Center

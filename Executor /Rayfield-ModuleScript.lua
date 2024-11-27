@@ -2248,16 +2248,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end
 			Dropdown.Title.Text = DropdownSettings.Name
 			Dropdown.Visible = true
-			Tab.Elements[DropdownSettings.Name] = {
-				type = 'dropdown',
-				section = DropdownSettings.SectionParent,
-				element = Dropdown
-			}
-			if DropdownSettings.SectionParent then
-				Dropdown.Parent = DropdownSettings.SectionParent.Holder
-			else
-				Dropdown.Parent = TabPage
-			end
+			Dropdown.Parent = TabPage
 
 			Dropdown.List.Visible = false
 			if DropdownSettings.CurrentOption then

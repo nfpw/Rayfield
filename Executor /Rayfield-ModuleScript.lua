@@ -374,7 +374,7 @@ local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
 -- Interface Management
-local Rayfield = game:GetObjects("rbxassetid://120354143577616")[1]
+local Rayfield = game:GetObjects("rbxassetid://131177882749086")[1]
 Rayfield.Enabled = false
 
 local ParentObject = function(Gui)
@@ -2068,26 +2068,20 @@ function RayfieldLibrary:CreateWindow(Settings)
 		end
 
 		-- Section
-		function Tab:CreateSection(SectionName,Display)
+		function Tab:CreateSection(SectionName)
 
-			local SectionValue = {
-				Holder = Rayfield.Holding,
-				Open = true
-			}
+			local SectionValue = {}
 
-			local Debounce = false
+			if SDone then
+				local SectionSpace = Elements.Template.SectionSpacing:Clone()
+				SectionSpace.Visible = true
+				SectionSpace.Parent = TabPage
+			end
+
 			local Section = Elements.Template.SectionTitle:Clone()
-			SectionValue.Holder = Section.Holder
 			Section.Title.Text = SectionName
 			Section.Visible = true
 			Section.Parent = TabPage
-
-			Tab.Elements[SectionName] = {
-				type = 'section',
-				display = Display,
-				sectionholder = Section.Holder,
-				element = Section
-			}
 
 			Section.Title.TextTransparency = 1
 			TweenService:Create(Section.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
@@ -2095,90 +2089,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 			function SectionValue:Set(NewSection)
 				Section.Title.Text = NewSection
 			end
-			if Display then
-				Section._UIPadding_:Destroy()
-				Section.Holder.Visible = false
-				Section.BackgroundTransparency = 1
-				SectionValue.Holder.Parent = Rayfield.Holding
-				Section.Title.ImageButton.Visible = false
-			end
-			Section.Title.ImageButton.MouseButton1Down:Connect(function()
-				if Debounce then return end
-				if SectionValue.Open then
-					--Section.Holder.Visible = true
-					Debounce = true
-					TweenService:Create(Section._UIPadding_, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {PaddingBottom = UDim.new(0,0)}):Play()
-					for _, element in ipairs(Section.Holder:GetChildren()) do
-						if element.ClassName == "Frame" then
-							if element.Name ~= "SectionSpacing" and element.Name ~= "Placeholder" and element.Name ~= 'Topholder' then
-								if element.Name == "SectionTitle" then
-									TweenService:Create(element.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {TextTransparency = 1}):Play()
-								else
-									TweenService:Create(element, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
-									TweenService:Create(element.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {Transparency = 1}):Play()
-									TweenService:Create(element.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {TextTransparency = 1}):Play()
-								end
-								for _, child in ipairs(element:GetChildren()) do
-									if child.ClassName == "Frame" then --or child.ClassName == "TextLabel" or child.ClassName == "TextBox" or child.ClassName == "ImageButton" or child.ClassName == "ImageLabel" then
-										child.Visible = false
-									end
-								end
-							end
-							element.Visible = false
-						end
-					end
-					TweenService:Create(Section.Title.ImageButton,TweenInfo.new(0.4,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{Rotation = 180}):Play()
-					SectionValue.Open = false
-					Debounce = false
-				else
-					Debounce = true
-					TweenService:Create(Section._UIPadding_, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {PaddingBottom = UDim.new(0,8)}):Play()
-					for _, element in ipairs(Section.Holder:GetChildren()) do
-						if element.ClassName == "Frame" then
-							if element.Name ~= "SectionSpacing" and element.Name ~= "Placeholder" and element.Name ~= 'Topholder' and not element:FindFirstChild('ColorPickerIs') then
-								if element.Name == "SectionTitle" then
-									TweenService:Create(element.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
-								else
-									TweenService:Create(element, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
-									TweenService:Create(element.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
-									TweenService:Create(element.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
-								end
-								for _, child in ipairs(element:GetChildren()) do
-									if (child.ClassName == "Frame" or child.ClassName == "TextLabel" or child.ClassName == "TextBox" or child.ClassName == "ImageButton" or child.ClassName == "ImageLabel") then
-										child.Visible = true
-									end
-								end
-							elseif element:FindFirstChild('ColorPickerIs') then
-								TweenService:Create(element, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {BackgroundTransparency = 0}):Play()
-								TweenService:Create(element.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {Transparency = 0}):Play()
-								TweenService:Create(element.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
-								if element.ColorPickerIs.Value then
-									element.ColorSlider.Visible = true
-									element.HexInput.Visible = true
-									element.RGB.Visible = true
-								end
-								element.CPBackground.Visible = true
-								element.Lock.Visible = true
-								element.Interact.Visible = true
-								element.Title.Visible = true
 
-							end
-							element.Visible = true
-						end
-					end
-					TweenService:Create(Section.Title.ImageButton,TweenInfo.new(0.4,Enum.EasingStyle.Quart,Enum.EasingDirection.Out),{Rotation = 0}):Play()
-					SectionValue.Open = true
-					task.wait(.3)
-					Debounce = false
-				end
-			end)
 			SDone = true
-			function SectionValue:Lock(Reason)
-
-			end
-			function SectionValue:Unlock(Reason)
-
-			end
 
 			return SectionValue
 		end
@@ -2336,16 +2248,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end
 			Dropdown.Title.Text = DropdownSettings.Name
 			Dropdown.Visible = true
-			Tab.Elements[DropdownSettings.Name] = {
-				type = 'dropdown',
-				section = DropdownSettings.SectionParent,
-				element = Dropdown
-			}
-			if DropdownSettings.SectionParent then
-				Dropdown.Parent = DropdownSettings.SectionParent.Holder
-			else
-				Dropdown.Parent = TabPage
-			end
+			Dropdown.Parent = TabPage
+
 			Dropdown.List.Visible = false
 			if DropdownSettings.CurrentOption then
 				if type(DropdownSettings.CurrentOption) == "string" then

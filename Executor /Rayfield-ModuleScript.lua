@@ -380,7 +380,7 @@ Rayfield.Enabled = false
 local ParentObject = function(Gui)
 	local success, failure = pcall(function()
 		if CoreGui then
-			Gui.Parent = CoreGui
+			Gui.Parent = gethui()
 		end
 	end)
 	if not success and failure then

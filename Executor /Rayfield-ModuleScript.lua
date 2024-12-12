@@ -366,12 +366,12 @@ local RayfieldLibrary = {
 
 -- Services
 
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local HttpService = game:GetService("HttpService")
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local CoreGui = game:GetService("CoreGui")
+local UserInputService = cloneref(game:GetService("UserInputService"))
+local TweenService = cloneref(game:GetService("TweenService"))
+local HttpService = cloneref(game:GetService("HttpService"))
+local RunService = cloneref(game:GetService("RunService"))
+local Players = cloneref(game:GetService("Players"))
+local CoreGui = cloneref(game:GetService("CoreGui"))
 
 -- Interface Management
 local Rayfield = game:GetObjects("rbxassetid://131177882749086")[1]
@@ -380,11 +380,11 @@ Rayfield.Enabled = false
 local ParentObject = function(Gui)
 	local success, failure = pcall(function()
 		if CoreGui then
-			Gui.Parent = gethui()
+			Gui.Parent = CoreGui
 		end
 	end)
 	if not success and failure then
-		Gui.Parent = game.Players.LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
+		Gui.Parent = Players.LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
 	end
 	getgenv().LastRayField = Rayfield
 end
@@ -408,7 +408,7 @@ end
 
 -- Object Variables
 
-local Camera = game:GetService("Workspace").CurrentCamera
+local Camera = cloneref(game:GetService("Workspace")).CurrentCamera
 local Main = Rayfield.Main
 local MPrompt = Rayfield:FindFirstChild('Prompt')
 local Topbar = Main.Topbar
@@ -482,7 +482,7 @@ local function makeDraggable(object, dragObject, enableTaptic)
 	local offset = Vector2.zero
 	local screenGui = object:FindFirstAncestorWhichIsA("ScreenGui")
 	if screenGui and screenGui.IgnoreGuiInset then
-		offset += game:GetService('GuiService'):GetGuiInset()
+		offset += cloneref(game:GetService('GuiService')):GetGuiInset()
 	end
 
 	local function connectFunctions()
@@ -1577,7 +1577,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 						TweenService:Create(KeyMain.NoteMessage, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {TextTransparency = 1}):Play()
 						TweenService:Create(KeyMain.Hide, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {ImageTransparency = 1}):Play()
 						task.wait(0.45)
-						game.Players.LocalPlayer:Kick("No Attempts Remaining")
+						Players.LocalPlayer:Kick("No Attempts Remaining")
 						game:Shutdown()
 					end
 					KeyMain.Input.InputBox.Text = ""
@@ -1857,7 +1857,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			ColorPicker.HexInput.UIStroke.Color = SelectedTheme.InputStroke
 
 			local opened = false 
-			local mouse = game.Players.LocalPlayer:GetMouse()
+			local mouse = Players.LocalPlayer:GetMouse()
 			Main.Image = "http://www.roblox.com/asset/?id=11415645739"
 			local mainDragging = false 
 			local sliderDragging = false 
@@ -1899,7 +1899,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			end)
 
-			game:GetService("UserInputService").InputEnded:Connect(function(input, gameProcessed) if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then 
+			cloneref(game:GetService("UserInputService")).InputEnded:Connect(function(input, gameProcessed) if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then 
 					mainDragging = false
 					sliderDragging = false
 				end end)
@@ -1991,7 +1991,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				pcall(function()ColorPickerSettings.Callback(Color3.fromHSV(h,s,v))end)
 			end)
 
-			game:GetService("RunService").RenderStepped:connect(function()
+			cloneref(game:GetService("RunService")).RenderStepped:connect(function()
 				if mainDragging then 
 					local localX = math.clamp(mouse.X-Main.AbsolutePosition.X,0,Main.AbsoluteSize.X)
 					local localY = math.clamp(mouse.Y-Main.AbsolutePosition.Y,0,Main.AbsoluteSize.Y)
